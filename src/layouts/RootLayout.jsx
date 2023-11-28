@@ -4,7 +4,13 @@ import Navbar from '../components/Navbar'
 
 const RootLayout = () => {
   return (
-    <Flex direction={'column'} position={'relative'} px={'30px'}>
+    <Flex
+      direction={'column'}
+      position={'relative'}
+      px={'30px'}
+      bg={'#FCFCFC'}
+      h={'100vh'}
+    >
       <Outlet />
       <Navbar />
     </Flex>
