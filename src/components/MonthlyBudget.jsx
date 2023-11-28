@@ -6,8 +6,11 @@ import {
   TabPanels,
   TabPanel,
   Tabs,
+  Text,
 } from '@chakra-ui/react'
-import { NoBudgetCreated, NothingCreated } from '../assets/icons'
+import { NoBudgetCreated } from '../assets/icons'
+import CircleWithPercent from './CircleWithPercent'
+import CircleWithIconAndProgress from './CirleWithIconAndProgress'
 
 const MonthlyBudget = () => {
   const tabStyles = {
@@ -47,6 +50,26 @@ const MonthlyBudget = () => {
               w={'150px'}
               height={'150px'}
             />
+            <Text w={'60%'} textAlign={'center'} mt={'21px'} color={'#707480'}>
+              No budget created for last month.
+            </Text>
+          </TabPanel>
+          <TabPanel
+            display={'flex'}
+            alignItems={'center'}
+            flexDirection={'column'}
+            padding={'0px'}
+          >
+            <Image
+              src={NoBudgetCreated}
+              alt='Empty'
+              w={'150px'}
+              height={'150px'}
+            />
+            <Text w={'60%'} textAlign={'center'} mt={'21px'} color={'#707480'}>
+              You haven’t created a budget for this month yet
+            </Text>
+            <CircleWithIconAndProgress percent={76} />
           </TabPanel>
         </TabPanels>
       </Tabs>
