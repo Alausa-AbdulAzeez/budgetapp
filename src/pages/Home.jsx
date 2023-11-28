@@ -1,7 +1,12 @@
-import React from "react";
+import { Box } from '@chakra-ui/react'
+import PageTitle from '../components/PageTitle'
 
 const Home = () => {
-  return <div>Home</div>;
-};
+  return (
+    <Box>
+      <PageTitle />
+    </Box>
+  )
+}
 
-export default Home;
+export default Home
