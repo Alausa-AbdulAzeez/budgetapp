@@ -9,6 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { NoBudgetCreated, ThreeDots } from '../assets/icons'
+import { DonutChart } from './DonutChart'
 
 const MonthlyBudget = ({ toggleOverlay, overviewType }) => {
   // CUSTOM STYLES
@@ -91,26 +92,8 @@ const MonthlyBudget = ({ toggleOverlay, overviewType }) => {
             )}
             {overviewType === 'Category Overview' && (
               <>
-                <Image
-                  src={NoBudgetCreated}
-                  alt='Empty'
-                  w={'150px'}
-                  height={'150px'}
-                />
-                <Text
-                  w={'60%'}
-                  textAlign={'center'}
-                  mt={'21px'}
-                  color={'#707480'}
-                >
-                  You haven’t created a budget for this month yet
-                </Text>
-                <Text
-                  w={'60%'}
-                  textAlign={'center'}
-                  mt={'21px'}
-                  color={'#707480'}
-                >
+                <DonutChart />
+                <Text w={'60%'} textAlign={'center'} color={'#707480'}>
                   You haven’t created a budget for this month yet
                 </Text>
               </>

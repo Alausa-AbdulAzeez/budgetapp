@@ -1,49 +1,104 @@
-import React from "react";
-import { CircularProgress, Box, Text, Flex } from "@chakra-ui/react";
+import { PureComponent } from 'react'
+import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts'
 
-const DonutChart = ({ data }) => {
-  const colors = ["red", "green", "blue"]; // Add more colors as needed
+const data = [
+  { name: 'Food', value: 35 },
+  { name: 'Savings', value: 20 },
+  { name: 'Repairs', value: 4 },
+  { name: 'Transportation', value: 20 },
+]
+
+const renderActiveShape = (props) => {
+  const RADIAN = Math.PI / 180
+  const {
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    startAngle,
+    endAngle,
+    fill,
+    payload,
+    percent,
+    value,
+  } = props
+  const sin = Math.sin(-RADIAN * midAngle)
+  const cos = Math.cos(-RADIAN * midAngle)
+  const sx = cx + (outerRadius + 10) * cos
+  const sy = cy + (outerRadius + 10) * sin
+  const mx = cx + (outerRadius + 30) * cos
+  const my = cy + (outerRadius + 30) * sin
+  const ex = mx + (cos >= 0 ? 1 : -1) * 22
+  const ey = my
+  const textAnchor = cos >= 0 ? 'start' : 'end'
 
   return (
-    <CircularProgress value={100} color="gray" size="150px" thickness="12px">
-      <Box position="relative" textAlign="center">
-        {data.map((percentage, index) => (
-          <CircularProgress
-            key={index}
-            value={percentage}
-            color={colors[index]}
-            thickness="10px"
-            size="100%"
-            trackColor="transparent"
-            capIsRound
-            isIndeterminate={percentage === 0}
-          />
-        ))}
-        <Flex
-          direction="column"
-          align="center"
-          justify="center"
-          position="absolute"
-          top="50%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-        >
-          {data.map((percentage, index) => (
-            <Box key={index} textAlign="center">
-              <Text
-                fontSize="sm"
-                color={colors[index]}
-              >{`${percentage}%`}</Text>
-              {/* Replace the following with your actual icon component */}
-              <Text fontSize="sm" color={colors[index]}>
-                Icon
-              </Text>
-            </Box>
-          ))}
-        </Flex>
-      </Box>
-    </CircularProgress>
-  );
-};
+    <g>
+      <text x={cx} y={cy} dy={8} textAnchor='middle' fill={fill}>
+        {payload.name}
+      </text>
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={innerRadius}
+        outerRadius={outerRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+      />
+      <Sector
+        cx={cx}
+        cy={cy}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        innerRadius={outerRadius + 6}
+        outerRadius={outerRadius + 10}
+        fill={fill}
+      />
+      <path
+        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
+        stroke={fill}
+        fill='none'
+      />
+      <circle cx={ex} cy={ey} r={2} fill={fill} stroke='none' />
+      <text
+        x={ex + (cos >= 0 ? 1 : -1) * 12}
+        y={ey}
+        textAnchor={textAnchor}
+        fill='#333'
+      >{`${value}%`}</text>
+    </g>
+  )
+}
 
-export default DonutChart;
+export class DonutChart extends PureComponent {
+  state = {
+    activeIndex: 0,
+  }
+
+  onPieEnter = (_, index) => {
+    this.setState({
+      activeIndex: index,
+    })
+  }
+
+  render() {
+    return (
+      <PieChart width={385} height={250}>
+        <Pie
+          activeIndex={this.state.activeIndex}
+          activeShape={renderActiveShape}
+          data={data}
+          cx='50%'
+          cy='50%'
+          innerRadius={60}
+          outerRadius={70}
+          fill='rgba(4, 102, 200, 0.40)'
+          dataKey='value'
+          onMouseEnter={this.onPieEnter}
+        />
+      </PieChart>
+    )
+  }
+}
