@@ -1,7 +1,5 @@
-import React from "react";
-
 const Budget = () => {
-  return <div>Budget</div>;
-};
+  return <div>Budget</div>
+}
 
-export default Budget;
+export default Budget
