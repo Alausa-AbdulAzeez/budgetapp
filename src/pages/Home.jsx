@@ -9,16 +9,26 @@ const Home = () => {
   // OVERLAY STATE
   const [overlayVisible, setOverlayVisible] = useState(false)
 
-  // OVERLAY STATE
+  // LIST STATE
   const [listVisible, setListVisible] = useState(false)
+
+  // OVERVIEW TYPE STATE
+  const [overviewType, setOverviewType] = useState('Expenses Overview')
 
   // FUNCTION TO HANDLE OVERLAY STATE TOGGLE
   const toggleOverlay = () => {
-    console.log('aaaa')
     setListVisible((prev) => !prev)
     setOverlayVisible((prev) => !prev)
   }
   // END OF FUNCTION TO HANDLE OVERLAY STATE TOGGLE
+
+  // FUNCTION TO HANDLE OVERVIEWTYPE STATE CHANGE
+  const changeOverviewType = (type) => {
+    setOverviewType(type)
+    setListVisible((prev) => !prev)
+    setOverlayVisible((prev) => !prev)
+  }
+  // END OF FUNCTION TO HANDLE OVERVIEWTYPE STATE CHANGE
 
   return (
     <Box>
@@ -43,16 +53,22 @@ const Home = () => {
               alignItems='center'
               gap='10px'
               cursor='pointer'
+              onClick={() => changeOverviewType('Expenses Overview')}
             >
               <Image src={Naira} alt='Currency' />
               <Text fontSize='12px' fontWeight='400'>
                 Expenses Overview
               </Text>
             </ListItem>
-            <ListItem display='flex' alignItems='center' gap='10px'>
+            <ListItem
+              display='flex'
+              alignItems='center'
+              gap='10px'
+              onClick={() => changeOverviewType('Category Overview')}
+            >
               <Image src={Naira} alt='Currency' />
               <Text fontSize='12px' fontWeight='400'>
-                Expenses Overview
+                Category Overview
               </Text>
             </ListItem>
           </List>
@@ -73,7 +89,10 @@ const Home = () => {
             onClick={toggleOverlay}
           ></Box>
         )}
-        <MonthlyBudget toggleOverlay={toggleOverlay} />
+        <MonthlyBudget
+          toggleOverlay={toggleOverlay}
+          overviewType={overviewType}
+        />
         <CategoryBreakdown />
       </Box>
     </Box>

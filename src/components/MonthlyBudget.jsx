@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { NoBudgetCreated, ThreeDots } from '../assets/icons'
 
-const MonthlyBudget = ({ toggleOverlay }) => {
+const MonthlyBudget = ({ toggleOverlay, overviewType }) => {
   // CUSTOM STYLES
   const tabStyles = {
     color: '#0466C8',
@@ -71,15 +71,50 @@ const MonthlyBudget = ({ toggleOverlay }) => {
             flexDirection={'column'}
             padding={'0px'}
           >
-            <Image
-              src={NoBudgetCreated}
-              alt='Empty'
-              w={'150px'}
-              height={'150px'}
-            />
-            <Text w={'60%'} textAlign={'center'} mt={'21px'} color={'#707480'}>
-              You haven’t created a budget for this month yet
-            </Text>
+            {overviewType === 'Expenses Overview' && (
+              <>
+                <Image
+                  src={NoBudgetCreated}
+                  alt='Empty'
+                  w={'150px'}
+                  height={'150px'}
+                />
+                <Text
+                  w={'60%'}
+                  textAlign={'center'}
+                  mt={'21px'}
+                  color={'#707480'}
+                >
+                  You haven’t created a budget for this month yet
+                </Text>
+              </>
+            )}
+            {overviewType === 'Category Overview' && (
+              <>
+                <Image
+                  src={NoBudgetCreated}
+                  alt='Empty'
+                  w={'150px'}
+                  height={'150px'}
+                />
+                <Text
+                  w={'60%'}
+                  textAlign={'center'}
+                  mt={'21px'}
+                  color={'#707480'}
+                >
+                  You haven’t created a budget for this month yet
+                </Text>
+                <Text
+                  w={'60%'}
+                  textAlign={'center'}
+                  mt={'21px'}
+                  color={'#707480'}
+                >
+                  You haven’t created a budget for this month yet
+                </Text>
+              </>
+            )}
           </TabPanel>
         </TabPanels>
       </Tabs>
